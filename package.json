@@ -11,6 +11,7 @@
   },
   "bin": {
     "clawdbot-cn": "dist/entry.js",
+    "openclaw": "dist/entry.js",
     "openclaw-cn": "dist/entry.js"
   },
   "files": [

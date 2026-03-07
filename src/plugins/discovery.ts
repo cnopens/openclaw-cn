@@ -152,11 +152,14 @@ function discoverInDirectory(params: {
           continue;
         }
         if (!fs.existsSync(resolved)) {
-          params.diagnostics.push({
-            level: "warn",
-            message: `openclaw.extensions entry not found: ${extPath}`,
-            source: fullPath,
-          });
+          // Bundled source-only packages without dist/ are expected – skip silently
+          if (params.origin !== "bundled") {
+            params.diagnostics.push({
+              level: "warn",
+              message: `openclaw.extensions entry not found: ${extPath}`,
+              source: fullPath,
+            });
+          }
           continue;
         }
         if (!isPathInsideWithRealpath(fullPath, resolved, { requireRealpath: true })) {

@@ -32,6 +32,10 @@ Docs: https://clawd.org.cn/
 
 - **新增钉钉渠道（`dingtalk-real-ai/dingtalk-connector`）**：新增钉钉官方连接器渠道插件 `@openclaw-cn/dingtalk-connector`，通过官方 `dingtalk-connector` 接入钉钉机器人。配置向导支持交互式设置必填项：`clientId`（钉钉应用 Client ID）、`clientSecret`（Client Secret）、`gatewayToken`（Gateway 认证 Token）；配置完成后自动在 `channels.dingtalk-connector` 写入凭证，并确保 `gateway.http.endpoints.chatCompletions.enabled = true` 满足官方连接器要求
 
+### 企业微信官方插件渠道支持
+
+- **新增企业微信渠道（`@wecom/wecom-openclaw-plugin`）**：新增企业微信官方连接器渠道插件 `@openclaw-cn/wecom-connector`，配置向导支持交互式设置必填项：`botId`（企业微信机器人 ID）、`secret`（机器人密钥）；配置完成后自动在 `channels.wecom-connector` 写入凭证
+
 ### bug修复
 
 - **DM 多 Agent 内容路由**：新增 `agents.list[].dmChat.mentionPatterns` 配置项，支持在私信（DM）场景下通过消息关键词/正则将消息路由到指定 Agent；修复 `DmConfig` 类型缺少 `mentionPatterns` 字段导致配置无效的问题（#460）

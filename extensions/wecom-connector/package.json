@@ -1,0 +1,81 @@
+{
+  "name": "@openclaw-cn/wecom-connector",
+  "version": "0.1.0",
+  "description": "企业微信 OpenClaw 渠道插件，通过官方 @wecom/wecom-openclaw-plugin 接入企业微信机器人。",
+  "keywords": [
+    "enterprise",
+    "openclaw",
+    "plugin",
+    "wechat",
+    "wecom"
+  ],
+  "homepage": "https://github.com/openclaw/openclaw-cn/tree/main/extensions/wecom-connector",
+  "bugs": {
+    "url": "https://github.com/openclaw/openclaw-cn/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openclaw/openclaw-cn.git",
+    "directory": "extensions/wecom-connector"
+  },
+  "files": [
+    "openclaw.plugin.json",
+    "package.json",
+    "README.md",
+    "dist/"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "openclaw": "*",
+    "openclaw-cn": "*"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    },
+    "openclaw-cn": {
+      "optional": true
+    }
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "channel": {
+      "id": "wecom-connector",
+      "label": "企业微信",
+      "selectionLabel": "企业微信 (WeCom)",
+      "docsPath": "/channels/wecom-connector",
+      "docsLabel": "wecom-connector",
+      "blurb": "企业微信机器人接入插件。",
+      "aliases": [
+        "wecom",
+        "wechat-work",
+        "wxwork"
+      ],
+      "order": 45
+    },
+    "install": {
+      "npmSpec": "@wecom/wecom-openclaw-plugin",
+      "officialSpec": "@wecom/wecom-openclaw-plugin",
+      "defaultChoice": "official"
+    }
+  }
+}

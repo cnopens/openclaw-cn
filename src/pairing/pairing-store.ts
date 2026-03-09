@@ -271,7 +271,27 @@ export async function readChannelAllowFromStore(
     allowFrom: [],
   });
   const list = Array.isArray(value.allowFrom) ? value.allowFrom : [];
-  return list.map((v) => normalizeAllowEntry(channel, String(v))).filter(Boolean);
+  const entries = list.map((v) => normalizeAllowEntry(channel, String(v))).filter(Boolean);
+
+  // When reading the channel-level store (no accountId), also merge the "default"
+  // account-scoped store so that `pairing approve` (which writes to the account-scoped
+  // file because the pairing request carries meta.accountId="default") is always visible.
+  if (!accountId) {
+    const defaultFilePath = resolveAllowFromPath(channel, env, "default");
+    if (defaultFilePath !== filePath) {
+      const { value: defaultValue } = await readJsonFile<AllowFromStore>(defaultFilePath, {
+        version: 1,
+        allowFrom: [],
+      });
+      const defaultList = Array.isArray(defaultValue.allowFrom) ? defaultValue.allowFrom : [];
+      const defaultEntries = defaultList
+        .map((v) => normalizeAllowEntry(channel, String(v)))
+        .filter(Boolean);
+      return Array.from(new Set([...entries, ...defaultEntries]));
+    }
+  }
+
+  return entries;
 }
 
 export async function addChannelAllowFromStoreEntry(params: {

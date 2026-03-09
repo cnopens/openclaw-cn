@@ -95,7 +95,13 @@ async function promptInstallChoice(params: {
     : [];
   const officialOptions: Array<{ value: InstallChoice; label: string; hint?: string }> = entry
     .install.officialSpec
-    ? [{ value: "official", label: "飞书官方插件", hint: entry.install.officialSpec }]
+    ? [
+        {
+          value: "official",
+          label: `${entry.meta.label}官方插件`,
+          hint: entry.install.officialSpec,
+        },
+      ]
     : [];
   const options: Array<{ value: InstallChoice; label: string; hint?: string }> = [
     ...officialOptions,
